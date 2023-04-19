@@ -14,21 +14,26 @@ public class MemoController {
 
     private final MemoService memoService;
 
+    //게시글 입력
     @PostMapping("/post")
     public MemoResponseDto createMemo(@RequestBody MemoRequestDto requestDto){
         return memoService.createMemo(requestDto);
     }
+
+    //게시글 전체조회
     @GetMapping("/get")
         public List<MemoResponseDto> getMemos() {
         return memoService.getMemos();
     }
 
-    @GetMapping("/get/{id}") //하나만 뽑아서 조회
+    //게시글 하나 조회
+    @GetMapping("/get/{id}")
     public MemoResponseDto getMemo(@PathVariable Long id) {
         return memoService.getMemo(id);
     }
 
-    @PutMapping("/put/{id}") //ResponseEntity<?> 함수를 알아보기
+    //게시글 수정
+    @PutMapping("/put/{id}")
     public MemoResponseDto update(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         return memoService.update(id, requestDto);
     }

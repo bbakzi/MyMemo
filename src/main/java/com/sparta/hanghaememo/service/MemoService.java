@@ -17,6 +17,7 @@ public class MemoService {
 
     private final MemoRepository memoRepository;
 
+    //게시글 입력
     @Transactional
     public MemoResponseDto createMemo(MemoRequestDto requestDto) {
         Memo memo = new Memo(requestDto);
@@ -24,14 +25,14 @@ public class MemoService {
 
         return new MemoResponseDto(memo);
     }
-
+    //게시글 전체 조회
     @Transactional(readOnly = true)
     public List<MemoResponseDto> getMemos() {
         List<Memo> memos = memoRepository.findAllByOrderByModifiedAtDesc();
 
         return memos.stream().map(memo -> new MemoResponseDto(memo)).toList();
     }
-
+    //게시글 한개 조회
     @Transactional(readOnly = true)
     public MemoResponseDto getMemo(Long id) {
         Memo memo = memoRepository.findById(id).orElseThrow(
@@ -39,7 +40,7 @@ public class MemoService {
         );
         return new MemoResponseDto(memo);
     }
-
+    //게시글 수정
     @Transactional
     public MemoResponseDto update(Long id, MemoRequestDto requestDto) {
 
@@ -75,36 +76,7 @@ public class MemoService {
     }
 }
 
-//    @Transactional
-//    public ResponseEntity<?> update(Long id, MemoRequestDto requestDto) {
-//        Memo memo = memoRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
-//        );
-//        if (memo.getPassword().equals(requestDto.getPassword())) {
-//            memo.update(requestDto);
-//            return ResponseEntity.ok(new MemoResponseDto(memo));
-//        } else {
-//            return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
-//            //오류 상태코드를 입력오류니 다른 오류를 찾지 말라고 알려주는 것! 리소스 낭비 방지. 입력오류라는 뜻!
-//        }
-//    }
-//
-//    @Transactional 질문할 내용
-//    public MemoResponseDto deleteAll(Long id, String password) {
-//        Memo memo = memoRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("게시글 존재하지 않습니다.")
-//        );
-//
-//        if (memo.getPassword().equals(password)) {
-//            memoRepository.deleteById(id);
-//            return new MemoResponseDto("삭제되었습니다.", HttpStatus.OK.value());//.value 왜 쓸까?
-//        } else
-//            return new MemoResponseDto("비밀번호가 다릅니다.", HttpStatus.UNAUTHORIZED.value());//.value 왜 쓸까?
-//    }
-//}
-
-
-        /* -> 원래 하려고 했던 게시글 수정
+       /* -> 원래 하려고 했던 게시글 수정
             @Transactional
     public ResponseEntity<?> update(Long id, MemoRequestDto requestDto) {
         Memo memo = memoRepository.findById(id).orElseThrow(
@@ -126,7 +98,6 @@ public class MemoService {
         Memo memo = memoRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("게시글 존재하지 않습니다.")
         );
-
         if (memo.getPassword().equals(password)) {
             memoRepository.deleteById(id);
             return new MemoResponseDto("삭제되었습니다.", HttpStatus.OK.value());//.value 왜 쓸까?
@@ -134,5 +105,4 @@ public class MemoService {
             return new MemoResponseDto("비밀번호가 다릅니다.", HttpStatus.UNAUTHORIZED.value());//.value 왜 쓸까?
     }
 }
-
  */
