@@ -32,7 +32,7 @@ public class MemoService {
 
         return memos.stream().map(memo -> new MemoResponseDto(memo)).toList();
     //list는 몇개 부터 list가 null 부터 null 상태에서 조회를 하면 오류가 아니라 아무것도 안나온다는 것
-        //과제 :  for 를 통해서 리스트에 값을 일일이 담아서 전체 조회 하는 방법. "response Entity 검색하기"
+        //과제 :  for 를 통해서 리스트에 값을 일일이 담아서 전체 조회 하는 방법. "response Entity 검색하기" -김승균매니저님 과제-
     }
     //게시글 한개 조회
     @Transactional(readOnly = true)
